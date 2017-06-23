@@ -1,5 +1,9 @@
 const { FAIL } = require('./constants')
 
+/*
+This logical combinator takes another parser and passes the input
+into that parser until the input is exhausted or the parser returns FAIL
+*/
 const any = (parser) => {
   return ([output, input]) => {
     let results = []
@@ -16,6 +20,11 @@ const any = (parser) => {
   }
 }
 
+/*
+This combinator takes any number of parsers and matches the tokens against
+each one of those parsers in sequence. It returns a failure when any of the parsers
+return FAIL
+*/
 const sequence = (...parsers) => {
   return ([output, input]) => {
     let results = []
@@ -28,6 +37,11 @@ const sequence = (...parsers) => {
   }
 }
 
+/*
+This combinator takes two parsers and tries one, backtracks in case of a failure,
+and then tries the other. If either parser returns a value then that value will be returned,
+otherwise the failure is returned.
+*/
 const or = (parserA, parserB) => {
   return ([output, input]) => {
     let idx = input.rememberIdx()
@@ -41,6 +55,9 @@ const or = (parserA, parserB) => {
   }
 }
 
+/*
+This function is used to transform the output from any parser
+*/
 const apply = (fn, parser) => {
   return ([output, input]) => {
     const [result] = parser([output, input])
