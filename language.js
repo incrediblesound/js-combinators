@@ -11,8 +11,8 @@ const operator = specialChar(['+','-','*','/'])
 const valueExp = or(number, string)
 
 /*
-Read: "A function expression is an open parens, then an operator, then any number of value expressions
-or function expressions, then a close parens."
+A function expression is an open parens, then an operator, then any number of value expressions
+or function expressions, then a close parens.
 */
 const functionExp = ([output, input]) => {
   let [result] = apply(makeFunc, sequence(
@@ -25,15 +25,15 @@ const functionExp = ([output, input]) => {
 }
 
 /*
-"A let statement is the keyword let followed by a word, an equals sign, and then either a function
-expression or a value."
+A let statement is the keyword let followed by a word, an equals sign, and then either a function
+expression or a value.
 */
 const letStatement = apply(makeLet, sequence(
   letKeyword, word, equals, or(functionExp, valueExp)
 ))
 
 /*
-The parser matches any number of let statements or function expressions"
+The language is any number of let statements or function expressions
 */
 const parser = any(or(
   letStatement,

@@ -19,13 +19,12 @@ const makeTree = (type) => {
 /* [ '(', '*', [ 3, 4 ], ')' ] */
 const makeFunc = (tokens) => {
   const result = new Tree('function')
-  tokens.shift()
-  tokens.pop()
-  result.operator = tokens[0].value
-  result.children = tokens[1]
+  result.operator = tokens[1].value
+  result.children = tokens[2]
   return result
 }
 
+/* [ 'let', 'n', '=', '6'] */
 const makeLet = (children) => {
   return {
     type: 'let',
